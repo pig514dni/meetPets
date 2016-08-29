@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1As-2B-n2m">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MeetPets" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="230" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PdB-Hs-xDt">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="230" id="Iip-HD-6Dc" customClass="PetsTableViewCell" customModule="MeetPets" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="230"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iip-HD-6Dc" id="NfX-rZ-HaI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="229.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eKc-F6-wYO" customClass="AdvancedImageView">
+                                                    <rect key="frame" x="0.0" y="4" width="600" height="221.5"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="eKc-F6-wYO" firstAttribute="leading" secondItem="NfX-rZ-HaI" secondAttribute="leading" identifier="id1" id="ePh-9m-B8o"/>
+                                                <constraint firstAttribute="trailing" secondItem="eKc-F6-wYO" secondAttribute="trailing" identifier="id2" id="fFN-OY-GHI"/>
+                                                <constraint firstAttribute="bottom" secondItem="eKc-F6-wYO" secondAttribute="bottom" constant="4" identifier="id3" id="pjA-y0-D2b"/>
+                                                <constraint firstItem="eKc-F6-wYO" firstAttribute="top" secondItem="NfX-rZ-HaI" secondAttribute="top" constant="4" identifier="id4" id="wbO-FK-X7f"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="petImage" destination="eKc-F6-wYO" id="aND-ZH-7bK"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="wFl-bd-uyU"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="5Hr-zl-hfj"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PdB-Hs-xDt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" identifier="id5" id="TZ4-zs-lh2"/>
+                            <constraint firstAttribute="trailing" secondItem="PdB-Hs-xDt" secondAttribute="trailing" identifier="id6" id="WjO-SQ-QK7"/>
+                            <constraint firstItem="PdB-Hs-xDt" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" identifier="id7" id="ZbV-Jp-wcD"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PdB-Hs-xDt" secondAttribute="bottom" identifier="id8" id="qZ7-NI-aNy"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ttO-Sr-pYP">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="MCt-XO-dVF">
+                            <connections>
+                                <action selector="leftVC:" destination="BYZ-38-t0r" id="DJn-Eb-N54"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="petsTableview" destination="PdB-Hs-xDt" id="RyT-FY-3dg"/>
+                        <outlet property="searchBtn" destination="ttO-Sr-pYP" id="Jn0-wh-ho2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1122" y="173"/>
+        </scene>
+        <!--Detail Pet Info View Controller-->
+        <scene sceneID="3Oz-Yl-Qmz">
+            <objects>
+                <viewController storyboardIdentifier="DetailPetInfoViewController" id="mR7-2g-j68" customClass="DetailPetInfoViewController" customModule="MeetPets" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gDa-7b-ifK"/>
+                        <viewControllerLayoutGuide type="bottom" id="tGc-Im-NOl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="DetailVC" id="Kmj-01-jbb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HbB-5j-2FA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1761" y="173"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="C2n-ye-HOD">
+            <objects>
+                <navigationController storyboardIdentifier="MainPage" automaticallyAdjustsScrollViewInsets="NO" id="1ln-Co-4as" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EJv-3j-gmx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="84r-rO-Crw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FoO-Du-f33" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="527" y="173"/>
+        </scene>
+        <!--Navigation View Controller-->
+        <scene sceneID="f0t-mR-NEh">
+            <objects>
+                <viewController id="1As-2B-n2m" customClass="NavigationViewController" customModule="MeetPets" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SZW-dD-O9l"/>
+                        <viewControllerLayoutGuide type="bottom" id="dFb-2R-VGM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L14-hZ-iD8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLn-ho-b1I">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Y6i-1P-uD9">
+                                <rect key="frame" x="0.0" y="555" width="600" height="37"/>
+                                <color key="pageIndicatorTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Y6i-1P-uD9" firstAttribute="leading" secondItem="L14-hZ-iD8" secondAttribute="leadingMargin" constant="-20" id="09e-wN-Yjt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Y6i-1P-uD9" secondAttribute="trailing" constant="-20" id="5Pr-qL-tHA"/>
+                            <constraint firstItem="aLn-ho-b1I" firstAttribute="bottom" secondItem="dFb-2R-VGM" secondAttribute="top" id="5lZ-kT-Z16"/>
+                            <constraint firstItem="aLn-ho-b1I" firstAttribute="top" secondItem="L14-hZ-iD8" secondAttribute="top" id="TzE-aj-H48"/>
+                            <constraint firstItem="dFb-2R-VGM" firstAttribute="top" secondItem="Y6i-1P-uD9" secondAttribute="bottom" constant="8" id="s7R-VP-ma4"/>
+                            <constraint firstItem="aLn-ho-b1I" firstAttribute="leading" secondItem="L14-hZ-iD8" secondAttribute="leading" id="sQp-pv-bSy"/>
+                            <constraint firstAttribute="trailing" secondItem="aLn-ho-b1I" secondAttribute="trailing" id="u7K-QL-dIr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="guideScrollView" destination="aLn-ho-b1I" id="kFp-Vi-8Qb"/>
+                        <outlet property="pageController" destination="Y6i-1P-uD9" id="F7X-5f-tYg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ppm-sf-sFX" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-152" y="173"/>
+        </scene>
+    </scenes>
+</document>
