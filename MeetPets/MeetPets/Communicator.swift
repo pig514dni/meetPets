@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-let BASE_URL = "填入 Server Domain Name"
+let BASE_URL = "https://ec2-52-198-85-218.ap-northeast-1.compute.amazonaws.com/"
 
 let GET_PETSINFO_URL = BASE_URL + "get_PetInfo.php"
 typealias Completion = (result:AnyObject?,error:NSError?) -> Void

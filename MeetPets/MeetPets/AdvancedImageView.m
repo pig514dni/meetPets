@@ -44,6 +44,15 @@
 -(void)loadImageWithURL:(NSURL*)url{
     [self preparing];
     
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.image=[UIImage imageNamed:@"noImages.jpg"];
+        
+    });
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@",url];
+    if ([urlString isEqualToString:@""]) {
+        return ;
+    }
     //Cancel previous download process
     //防止圖片下載到一半，使用者取消下載現有圖片，下載新的圖片會有問題
     if (downloadQueue !=nil) {
@@ -61,7 +70,10 @@
     NSString * fullFilePathname = [cachePath stringByAppendingPathComponent:hashFileName];
     UIImage * cachedImage = [UIImage imageWithContentsOfFile:fullFilePathname];
     if (cachedImage != nil) {
-        self.image=cachedImage;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.image=cachedImage;
+            
+        });
         return;
     }
     
@@ -85,6 +97,7 @@
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable connectionError) {
+  
         // connectionError -> error
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -135,7 +148,7 @@
         //NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
         //NSLog(@"catch path:%@",path);
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadDataSuccess" object:data];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadDataSuccess" object:data];
     }];
     [task resume];
 

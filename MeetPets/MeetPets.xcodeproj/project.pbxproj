@@ -13,6 +13,8 @@
 		DB1284381D5B68E9006845AA /* AdvancedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = DB1284371D5B68E9006845AA /* AdvancedImageView.m */; };
 		DB15F5831D6D41590046F086 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB15F5821D6D41590046F086 /* CoreLocation.framework */; };
 		DB5C100C1D633BE700FC85D6 /* DetailPetInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5C100B1D633BE700FC85D6 /* DetailPetInfoViewController.swift */; };
+		DB5F73571D7E5CE50027CA5C /* noImages.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DB5F73551D7E5CE50027CA5C /* noImages.jpg */; };
+		DB5F73581D7E5CE50027CA5C /* noResult.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DB5F73561D7E5CE50027CA5C /* noResult.jpg */; };
 		DB6EC7DE1D70330500F333DE /* telephone.png in Resources */ = {isa = PBXBuildFile; fileRef = DB6EC7DD1D70330500F333DE /* telephone.png */; };
 		DB6EC7E01D70330900F333DE /* navigation.png in Resources */ = {isa = PBXBuildFile; fileRef = DB6EC7DF1D70330900F333DE /* navigation.png */; };
 		DB6EC7E21D70381C00F333DE /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6EC7E11D70381C00F333DE /* NavigationViewController.swift */; };
@@ -40,6 +42,8 @@
 		DB1284371D5B68E9006845AA /* AdvancedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvancedImageView.m; sourceTree = "<group>"; };
 		DB15F5821D6D41590046F086 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DB5C100B1D633BE700FC85D6 /* DetailPetInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPetInfoViewController.swift; sourceTree = "<group>"; };
+		DB5F73551D7E5CE50027CA5C /* noImages.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noImages.jpg; sourceTree = "<group>"; };
+		DB5F73561D7E5CE50027CA5C /* noResult.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noResult.jpg; sourceTree = "<group>"; };
 		DB6EC7DD1D70330500F333DE /* telephone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = telephone.png; sourceTree = "<group>"; };
 		DB6EC7DF1D70330900F333DE /* navigation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation.png; sourceTree = "<group>"; };
 		DB6EC7E11D70381C00F333DE /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -112,10 +116,6 @@
 			children = (
 				DBB64ADE1D65868200A483E4 /* viewContrell */,
 				DBB64ADD1D65865F00A483E4 /* model */,
-				DB6EC7ED1D7045C500F333DE /* page1.jpg */,
-				DB6EC7EE1D7045C500F333DE /* page2.jpg */,
-				DB6EC7EB1D70415E00F333DE /* page3.jpg */,
-				DB6EC7E91D70398600F333DE /* bg.png */,
 				DB8E31611D5231E100666702 /* Main.storyboard */,
 				DB8E31661D5231E100666702 /* LaunchScreen.storyboard */,
 				DB8E31691D5231E100666702 /* Info.plist */,
@@ -135,6 +135,12 @@
 				DB1284371D5B68E9006845AA /* AdvancedImageView.m */,
 				DB6EC7DD1D70330500F333DE /* telephone.png */,
 				DB6EC7DF1D70330900F333DE /* navigation.png */,
+				DB5F73551D7E5CE50027CA5C /* noImages.jpg */,
+				DB5F73561D7E5CE50027CA5C /* noResult.jpg */,
+				DB6EC7ED1D7045C500F333DE /* page1.jpg */,
+				DB6EC7EE1D7045C500F333DE /* page2.jpg */,
+				DB6EC7EB1D70415E00F333DE /* page3.jpg */,
+				DB6EC7E91D70398600F333DE /* bg.png */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -213,7 +219,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB5F73571D7E5CE50027CA5C /* noImages.jpg in Resources */,
 				DB6EC7DE1D70330500F333DE /* telephone.png in Resources */,
+				DB5F73581D7E5CE50027CA5C /* noResult.jpg in Resources */,
 				DB6EC7EA1D70398600F333DE /* bg.png in Resources */,
 				DB8E31681D5231E100666702 /* LaunchScreen.storyboard in Resources */,
 				DB6EC7EC1D70415E00F333DE /* page3.jpg in Resources */,
@@ -406,6 +414,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MeetPets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.allen.MeetPets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -425,6 +434,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MeetPets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.allen.MeetPets;
 				PRODUCT_NAME = "$(TARGET_NAME)";

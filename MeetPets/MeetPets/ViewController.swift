@@ -158,13 +158,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         //重複利用PetsTableViewCell
         cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as? PetsTableViewCell
 //        print("cell petInfoArray:\(petsInfoArray)")
+       
         if petsInfoIndex == true{
 
             cell?.petImage.image = UIImage(named: "noResult.jpg")
         }else {
-            cell?.petsInfoArray = petsInfoArray[indexPath.row]
+//            cell?.petsInfoArray = petsInfoArray[indexPath.row]
             
-            cell?.setmetInfo()
+            if let url = NSURL(string: petsInfoArray[indexPath.row].album_file){
+                cell?.petImage.loadImageWithURL(url)
+            }
+            
         }
 
         cell!.backgroundColor = UIColor.whiteColor()

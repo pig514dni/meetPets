@@ -23,7 +23,7 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
     var geocoder1 = CLGeocoder()
     var targetPlacemark:CLPlacemark?
     private var BannerView = GADBannerView()
-    private let GoogleAdsID = "ca-app-pub-8430677780806455/9506452923"
+    private let GoogleAdsID = "填上GoogleAdsID"
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,7 +77,8 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
             
 //            print("targetPlacemark lat:\(self.targetPlacemark!.location?.coordinate.latitude), lon:\(self.targetPlacemark!.location?.coordinate.longitude)")
             let camera = GMSCameraPosition.cameraWithLatitude((self.targetPlacemark!.location?.coordinate.latitude )!,
-                                                              longitude:(self.targetPlacemark!.location?.coordinate.longitude)!, zoom:16)
+                longitude:(self.targetPlacemark!.location?.coordinate.longitude)!, zoom:16)
+            
             self.googleView = GMSMapView.mapWithFrame(CGRectMake(0.0, 48 + (0.3 * self.viewHeight), self.viewWidth, 0.25 * self.viewHeight), camera: camera)
             
             self.googleView?.myLocationEnabled = true
@@ -100,6 +101,10 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
                 
                 if (error != nil) {
                     print("Geocode failed with error:\(error)")
+                    let errorAlert = UIAlertController(title: "沒有提供收容所地址", message: "無法導航至目的地", preferredStyle: .Alert)
+                    let errorOk = UIAlertAction(title: "了解", style: .Default, handler: nil)
+                    errorAlert.addAction(errorOk)
+                    self.presentViewController(errorAlert, animated: true, completion: nil)
                     return
                 }
                 let targetPlacemark = placemarks![0]
@@ -116,28 +121,41 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
         alert.addAction(appleAction)
         let googleAction = UIAlertAction(title: "Google導航", style: .Default) { (let action) in
             let googleURL = NSURL(string: "comgooglemaps://")
-            if (UIApplication.sharedApplication().canOpenURL(googleURL!) ){
-
-                let stringToAddr = String.init(format: "%f ,%f", (self.targetPlacemark?.location?.coordinate.latitude)!,(self.targetPlacemark?.location?.coordinate.longitude)!)
-                
-                
-                let stringURLContent = String.init(format: "comgooglemaps://?daddr=%@", stringToAddr)
-
-                let GoogleURL2 = NSURL(string: stringURLContent.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-
+            if self.targetPlacemark != nil {
+                if (UIApplication.sharedApplication().canOpenURL(googleURL!) ){
+                    
+                    
+                    
+                    let stringToAddr = String.init(format: "%f ,%f", (self.targetPlacemark?.location?.coordinate.latitude)!,(self.targetPlacemark?.location?.coordinate.longitude)!)
+                    
+                    let stringURLContent = String.init(format: "comgooglemaps://?daddr=%@", stringToAddr)
+                    
+                    let GoogleURL2 = NSURL(string: stringURLContent.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+                    
                     dispatch_async(dispatch_get_main_queue(), {
-                         UIApplication.sharedApplication().openURL(GoogleURL2!)
+                        UIApplication.sharedApplication().openURL(GoogleURL2!)
                     })
-               
+                    
+                }
+                else {
+                    let itunsURL = NSURL(string: "itms-apps://itunes.apple.com/app/id585027354")
+                    dispatch_async(dispatch_get_main_queue(), {
+                        UIApplication.sharedApplication().openURL(itunsURL!)
+                    })
+                    
+                    //跳至Google MAP iTuns安裝頁 須在主執行緒並且異步執行,不然會有提示錯誤
+                }
+            }else{
+                print("Geocode failed with error in Google Map")
+                  let errorAlert = UIAlertController(title: "沒有提供收容所地址", message: "無法導航至目的地", preferredStyle: .Alert)
+                  let errorOk = UIAlertAction(title: "了解", style: .Default, handler: nil)
+                                errorAlert.addAction(errorOk)
+                  self.presentViewController(errorAlert, animated: true, completion: nil)
+                                return
             }
-            else {
-                let itunsURL = NSURL(string: "itms-apps://itunes.apple.com/app/id585027354")
-                dispatch_async(dispatch_get_main_queue(), {
-                   UIApplication.sharedApplication().openURL(itunsURL!)
-                })
-                
-                 //跳至Google MAP iTuns安裝頁 須在主執行緒並且異步執行,不然會有提示錯誤
-            }
+            
+            
+
         }
         alert.addAction(googleAction)
         
@@ -146,8 +164,15 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
         presentViewController(alert, animated: true, completion: nil)
     }
     func callToTarget() {
-        
-        if detailInfo?.shelter_tel.characters.count < 12 {
+        if detailInfo?.shelter_tel == "" {
+            print("Call failed with error ")
+            let errorAlert = UIAlertController(title: "沒有提供收容所電話", message: "無法撥打電話至收容所", preferredStyle: .Alert)
+            let errorOk = UIAlertAction(title: "了解", style: .Default, handler: nil)
+            errorAlert.addAction(errorOk)
+            self.presentViewController(errorAlert, animated: true, completion: nil)
+            return
+            
+        }else if detailInfo?.shelter_tel.characters.count < 12 {
             if detailInfo?.shelter_tel.rangeOfString(";") == nil || detailInfo?.shelter_tel.rangeOfString(" ") == nil || detailInfo?.shelter_tel != nil{
 //                print("tel.Count < 12 :\(detailInfo?.shelter_tel)")
                 self.callToShelter((detailInfo?.shelter_tel)!)
