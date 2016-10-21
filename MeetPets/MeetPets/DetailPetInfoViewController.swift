@@ -9,21 +9,28 @@
 import UIKit
 import GoogleMaps
 import MapKit
-import GoogleMobileAds
+
 class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     var detailImage = AdvancedImageView()
     var detailInfo:PetInfo?
     var viewWidth = UIScreen.mainScreen().bounds.width
+    //因有 NavigationBar 所以高度要剪掉44
     var viewHeight = UIScreen.mainScreen().bounds.height - 44
     var googleView:GMSMapView?
+    //打電話按鈕
     var phoneBtn = UIButton()
+    //導覽按鈕
     var navigationBtn = UIButton()
     var detailTableView = UITableView()
     var geocoder1 = CLGeocoder()
+    //地址轉換經緯度的
     var targetPlacemark:CLPlacemark?
-    private var BannerView = GADBannerView()
-    private let GoogleAdsID = "填上GoogleAdsID"
+
+    private let GoogleAdsID = "ca-app-pub-8430677780806455/9506452923"
+    override func loadView() {
+        super.loadView()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,6 +73,7 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
         detailTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         self.view.addSubview(detailTableView)
         
+        //將收容所位置轉換為經緯度
         geocoder1.geocodeAddressString((detailInfo?.shelter_address)!) { (let placemarks , let error ) in
             
             if (error != nil) {
@@ -83,19 +91,28 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
             
             self.googleView?.myLocationEnabled = true
             
-            
+            // GMSMarker https://developers.google.com/maps/documentation/ios-sdk/marker?hl=zh-tw
+            //製作標記點
             let marker = GMSMarker()
             marker.position = camera.target
             //
             marker.title = self.detailInfo?.shelter_name
+            //新增標記至地圖」動畫化
             marker.appearAnimation = kGMSMarkerAnimationPop
             marker.map = self.googleView
             self.view.addSubview(self.googleView!)
         }
         
     }
+    
+    //導航按鈕所執行功能
     func navigationToTarget() {
+        
+        //產生一格Alert
         let alert = UIAlertController(title: detailInfo?.animal_place, message: nil, preferredStyle: .Alert)
+        
+        //Alert按下後顯示的action
+        //產生Apple action
         let appleAction = UIAlertAction(title: "Apple導航", style: .Default) { (let action) in
             self.geocoder1.geocodeAddressString((self.detailInfo?.shelter_address)!) { (let placemarks , let error ) in
                 
@@ -113,15 +130,21 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
                 
                 let targetMapItem = MKMapItem.init(placemark: targetPlace)
                 
+                //導航模式為Driving
                 let options = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
+                //開啟導航
                 targetMapItem.openInMapsWithLaunchOptions(options)
             }
         }
-        
+        //將做好的action加入至alert
         alert.addAction(appleAction)
+        
+        //產生Google alert
         let googleAction = UIAlertAction(title: "Google導航", style: .Default) { (let action) in
             let googleURL = NSURL(string: "comgooglemaps://")
+            //假如收容所位置能轉換成功為經緯度
             if self.targetPlacemark != nil {
+                //假如判斷使用者有安裝Google Map
                 if (UIApplication.sharedApplication().canOpenURL(googleURL!) ){
                     
                     
@@ -130,6 +153,8 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
                     
                     let stringURLContent = String.init(format: "comgooglemaps://?daddr=%@", stringToAddr)
                     
+                    //將stringURLContent的字符編碼，已便傳到網路
+                    //參考 http://www.jianshu.com/p/21a21866e379
                     let GoogleURL2 = NSURL(string: stringURLContent.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
                     
                     dispatch_async(dispatch_get_main_queue(), {
@@ -137,6 +162,7 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
                     })
                     
                 }
+                    //如判斷使用者沒有安裝Google Map則跳至itunes安裝頁面
                 else {
                     let itunsURL = NSURL(string: "itms-apps://itunes.apple.com/app/id585027354")
                     dispatch_async(dispatch_get_main_queue(), {
@@ -163,6 +189,8 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
         alert.addAction(cancelAction)
         presentViewController(alert, animated: true, completion: nil)
     }
+    
+    //按下打電話按鈕後執行
     func callToTarget() {
         if detailInfo?.shelter_tel == "" {
             print("Call failed with error ")
@@ -208,14 +236,22 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
             
         }
     }
+    
+    //開始撥打電話函式
     func callToShelter(telString:String) {
         let tel = telString
+        
+        //刪除輸入字符串的頭尾的空白符號
         var telephoneString = tel.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        
         var deletePhoneString = telephoneString
+        //將"("、")"、_、"" 去掉
         deletePhoneString = deletePhoneString.stringByReplacingOccurrencesOfString("(", withString: "")
         deletePhoneString = deletePhoneString.stringByReplacingOccurrencesOfString(")", withString: "")
         deletePhoneString = deletePhoneString.stringByReplacingOccurrencesOfString("_", withString: "")
         deletePhoneString = deletePhoneString.stringByReplacingOccurrencesOfString(" ", withString: "")
+        
+        
         telephoneString = "tel://".stringByAppendingString(deletePhoneString)
         dispatch_async(dispatch_get_main_queue(), {
             UIApplication.sharedApplication().openURL(NSURL(string: telephoneString)!)
@@ -223,6 +259,7 @@ class DetailPetInfoViewController: UIViewController,UITableViewDelegate,UITableV
         
     }
     
+    //最面下顯示的tableView
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

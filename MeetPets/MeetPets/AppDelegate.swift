@@ -13,13 +13,13 @@ import GoogleMobileAds
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    private let GoogleAdsID = "填上GoogleAdsID"
+    private let GoogleAdsID = "ca-app-pub-8430677780806455~8029719729"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         //GOOGLE MAP KEY
-        GMSServices.provideAPIKey("填上Google Map APIKey")
+        GMSServices.provideAPIKey("AIzaSyAqLMCOfA2AadR-6QVUJ9vnRej8oiJBe2E")
     
   
         //NavigationBar 背景顏色

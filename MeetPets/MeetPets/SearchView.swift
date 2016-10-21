@@ -12,8 +12,8 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
     
     let comm = Communicator.sharedInstance
     
-    private  var sexLabel:UILabel?
-    private  var sexTextField:UITextField?
+//    private  var sexLabel:UILabel?
+//    private  var sexTextField:UITextField?
     private  var selectView:UIView?
     
     private  let viewWidth = UIScreen.mainScreen().bounds.width
@@ -25,11 +25,13 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
     private var textFieldLabel = UILabel?()
     private var pickerView:UIPickerView?
     private var searchInfoArray:[String] = []
+    //實際顯示的文字及輸入地方
     private var areaInfo = selectPetInfo()
     private var kindInfo = selectPetInfo()
     private var bodytypeInfo = selectPetInfo()
     private  var ageInfo = selectPetInfo()
     private  var sexInfo = selectPetInfo()
+    
     private  var selectString:String = ""
     private  var selectTextField:String = ""
     private var Json = [String:String]()
@@ -42,8 +44,10 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
         
         addSelectInfo()
         
+        //加入一個View 裡面裝著PickerView 取消 完成按鈕
         selectView = UIView(frame: CGRect(x: 0, y: viewHeight, width: 0.86 * viewWidth, height: 0.5 * viewHeight))
         selectView?.backgroundColor = UIColor(red: 112.0/255.0, green: 193.0/255.0, blue: 179.0/255.0, alpha: 1)
+
 
         addSubview(selectView!)
         
@@ -81,10 +85,12 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
         
         addSubview(searchBtn!)
         
+        //顯示使用者目前選到哪個條件
         textFieldLabel = UILabel(frame: CGRect(x: (0.86 * viewWidth / 2) - 10.5 , y: 10.0, width: 40.0, height: 21.0))
         
         self.selectView?.addSubview(textFieldLabel!)
         
+        //加入廣告
         BannerView = GADBannerView(frame: CGRect(x: 0.0, y: viewHeight - 110, width: 0.86 * viewWidth , height: 50))
         BannerView.adUnitID = GoogleAdsID
         BannerView.rootViewController = view1
@@ -103,16 +109,19 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
         return 1
     }
     
+    //顯示幾個選項
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
     {
         return searchInfoArray.count;
     }
     
+    //顯示選項名稱
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         return searchInfoArray[row]
     }
     
+    //使用者選擇到哪個選項
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         
         
@@ -156,6 +165,7 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
         }
 //        print("Json:\(Json)")
         
+        //將組好的Json格式Post至DB，並接收回來得值
         self.getPetsInfo(Json) { (result, error) in
             let nc = NSNotificationCenter.defaultCenter()
             nc.postNotificationName("reloadTableView", object: nil)
@@ -185,6 +195,7 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
         })
     }
     
+    //按下SelectView 確認按鈕所執行
     func confirmSelect() {
 
         switch selectTextField {
@@ -232,17 +243,21 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
         self.selectViewMoveOut()
     }
     
+     //按下SelectView 取消按鈕所執行
     func cancelSelect() {
         
         self.selectViewMoveOut()
     }
     
-
+    //按下textField所執行的Delegate
     func textFieldDidBeginEditing(textField: UITextField) {
       
         selectString = "不限"
+        //將pickerView位置回到(0.0)
         pickerView?.selectRow(0,inComponent:0,animated:true)
+        //移除之前的紀錄
         pickerView?.reloadAllComponents()
+        //將鍵盤收起來
         petInfoResignFirstResponder()
         if buttonIndex == false {
             self.selectViewMoveIn()
@@ -447,7 +462,9 @@ class SearchView: UIView,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDa
     
 }
 
+//自定義Class
 class selectPetInfo {
+    
     var selectLabel = UILabel()
     var selectTextField = UITextField()
     
